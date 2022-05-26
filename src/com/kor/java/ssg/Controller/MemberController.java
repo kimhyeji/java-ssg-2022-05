@@ -1,5 +1,6 @@
 package com.kor.java.ssg.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,6 +13,12 @@ public class MemberController extends Controller {
 	private String command;
 	private String actionMethodName;
 	
+	public MemberController(Scanner sc) {
+		this.sc = sc;
+		
+		members = new ArrayList<Member>();
+	}
+	
 	public void doAction(String command, String actionMethodName) {
 		this.command = command;
 		this.actionMethodName = actionMethodName;
@@ -21,11 +28,6 @@ public class MemberController extends Controller {
 			doJoin();
 			break;
 		}
-	}
-	
-	public MemberController(Scanner sc, List<Member> members) {
-		this.sc = sc;
-		this.members = members;
 	}
 	
 	private int getMemberindexByLoginId(String loginId) {
@@ -49,7 +51,7 @@ public class MemberController extends Controller {
 		return false;
 	}
 
-	public void doJoin() {
+	private void doJoin() {
 		int id = members.size() + 1;
 		String regDate = Util.getNowDateStr();
 
