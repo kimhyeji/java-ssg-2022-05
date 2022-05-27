@@ -12,42 +12,83 @@ public class MemberController extends Controller {
 	private List<Member> members;
 	private String command;
 	private String actionMethodName;
-	
+	private Member loginedMember;
+
 	public MemberController(Scanner sc) {
 		this.sc = sc;
-		
+
 		members = new ArrayList<Member>();
 	}
-	
+
 	public void doAction(String command, String actionMethodName) {
 		this.command = command;
 		this.actionMethodName = actionMethodName;
-		
-		switch ( actionMethodName ) {
-		case "join" :
+
+		switch (actionMethodName) {
+		case "join":
 			doJoin();
+			break;
+		case "login":
+			doLogin();
+			break;
+		default:
+			System.out.println("존재하지 않는 명령어 입니다");
 			break;
 		}
 	}
-	
-	private int getMemberindexByLoginId(String loginId) {
-		int i = 0;
-		for ( Member member : members ) {
-			if ( member.loginId.equals(loginId)) {
-				return i;
-			}
+
+	private void doLogin() {
+		System.out.printf("로그인 아이디 : ");
+		String loginId = sc.nextLine();
+		System.out.printf("로그인 비번 : ");
+		String loginPw = sc.nextLine();
+		
+		Member member = getMemberByLoginId(loginId);
+		
+		if ( member == null ) {
+			System.out.println("해당회원은 존재하지 않습니다.");
+			return;
 		}
 		
-		return -1;
+		if ( member.loginPw.equals(loginPw) == false ) {
+			System.out.println("비밀번호를 확인해주세요.");
+			return;
+		}
+		
+		loginedMember = member;
+		System.out.printf("로그인 성공!, %s님 환영합니다!\n", loginedMember.name);
+		
+		// 입력받은 아이디에 해당하는 회원이 존재하는지
 	}
-	
-	private boolean isJoinableLoginId(String loginId) {
+
+	private Member getMemberByLoginId(String loginId) {
 		int index = getMemberindexByLoginId(loginId);
 		
 		if ( index == -1 ) {
-			return true;
+			return null;
 		}
 		
+		return members.get(index);
+	}
+
+	private int getMemberindexByLoginId(String loginId) {
+		int i = 0;
+		for (Member member : members) {
+			if (member.loginId.equals(loginId)) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	private boolean isJoinableLoginId(String loginId) {
+		int index = getMemberindexByLoginId(loginId);
+
+		if (index == -1) {
+			return true;
+		}
+
 		return false;
 	}
 

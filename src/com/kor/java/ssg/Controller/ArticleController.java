@@ -39,6 +39,9 @@ public class ArticleController extends Controller {
 		case "write" :
 			doWrite();
 			break;
+		default :
+			System.out.println("존재하지 않는 명령어 입니다");
+			break;
 		}
 	}
 	
