@@ -1,4 +1,4 @@
-package com.kor.java.ssg.Controller;
+package com.kor.java.ssg.controller;
 
 import com.kor.java.ssg.dto.Member;
 

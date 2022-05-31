@@ -2,9 +2,9 @@ package com.kor.java.ssg;
 
 import java.util.Scanner;
 
-import com.kor.java.ssg.Controller.ArticleController;
-import com.kor.java.ssg.Controller.Controller;
-import com.kor.java.ssg.Controller.MemberController;
+import com.kor.java.ssg.controller.ArticleController;
+import com.kor.java.ssg.controller.Controller;
+import com.kor.java.ssg.controller.MemberController;
 
 public class App {
 	public void start() {
